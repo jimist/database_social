@@ -8,5 +8,8 @@ auth = auth.auth_user
 router.get('/', auth, (req, res, next) => {
   res.render('index', {title: 'arash'})
 });
+router.get('/login', auth, (req, res, next) => {
+  res.render('pages/login', {title: 'arash'})
+});
 
 module.exports = router
