@@ -10,9 +10,13 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-beta.3",
+    "cookies": "^0.7.3",
     "express": "^4.16.4",
     "jade": "^1.11.0",
     "mysql": "^2.16.0",
+    "nodemon": "^1.18.9",
     "pug": "^2.0.3"
   }
 }
