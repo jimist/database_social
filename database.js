@@ -7,6 +7,9 @@ let connection = mysql.createConnection({
     database : 'dbsocial'
 });
 
-connection.connect()
+connection.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+})
 
-module.exports.default = connection
+global.db = connection

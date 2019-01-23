@@ -2,11 +2,27 @@ let express = require('express');
 let path = require('path');
 let bodyParser = require('body-parser');
 let cookieParser = require('cookie-parser');
+let mysql = require('mysql');
 
-let app = express()
-let port = 3000 //process.env.PORT || 3000
+let connection = mysql.createConnection({
+    host     : 'localhost',
+    user     : 'root',
+    password : '',
+    database : 'dbsocial'
+});
 
-app.use(cookieParser())
+connection.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+});
+
+
+global.db = connection;
+
+let app = express();
+let port = process.env.PORT || 3000;
+
+app.use(cookieParser());
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
