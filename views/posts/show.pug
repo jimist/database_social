@@ -2,4 +2,12 @@ extends ../layouts/layout
 
 block content
     div(class="col-md-12")
-        p see single post here
+        div.col-12.border-primary
+            h2 post from <a href='/users/#{post.user.username}'>#{post.user.username}</a>
+            div.border.border-primary.p-3
+                #{post.content}
+            div.border.border-primary.p-2
+                a.btn.btn-danger(href='/post/'+post.id+'/like') like
+                a.ml-3.btn.btn-primary(href='/post/'+post.id+'/reply') comment
+        div.col-12.comments
+            h2 comments:
