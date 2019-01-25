@@ -42,13 +42,15 @@ router.post('/:id/reply', (req, res, next) => {
 
                 if (hashtags < 2) res.send('not enough hashtags!');
                 if (hashtagCount > 0) hashtags = hashtags.substr(0, hashtags.length - 1);
-                let insertNewPost = `INSERT INTO posts(user_id, type, content, reply_to, hashtags_count, hashtags, created_at, updated_at) VALUES(${userId}, 'reply', '${text}', ${postId}, ${hashtagCount}, '${hashtags}', ${now}, ${now})`;
+                let insertNewPost = `INSERT INTO posts(user_id, type, content, reply_to, hashtags_count, hashtags, created_at, updated_at) VALUES(${userId}, 'comment', '${text}', ${postId}, ${hashtagCount}, '${hashtags}', ${now}, ${now})`;
 
                 db.query(insertNewPost, (err, result) => {
                     if (result.length > 0) {
                         db.query(`UPDATE posts SET replies_count=replies_count+1 WHERE id=${postId}`, (err, result) => {
                             // let postId = result.insertId;
-                            res.redirect('/post/' + postId + '/view');
+                            db.query(`UPDATE users SET posts_count=posts_count+1 WHERE id=${userId}`, (err, result) => {
+                                res.redirect('/post/' + postId + '/view');
+                            });
                         });
                     }
                 });
@@ -113,8 +115,12 @@ router.post('/new', (req, res, next) => {
                VALUES(${userId}, 'original_post', '${text}', ${hashtagCount}, '${hashtags}', '${hashtagIds}', ${now}, ${now})`;
 
                 db.query(insertNewPost, (err, result) => {
-                    let postId = result.insertId;
-                    res.redirect('/post/' + postId + '/view');
+                    if(result.length>0){
+                        let postId = result.insertId;
+                        db.query(`UPDATE users SET posts_count=posts_count+1 WHERE id=${userId}`, (err, result) => {
+                            res.redirect('/post/' + postId + '/view');
+                        });
+                    }
                 });
             }
         });

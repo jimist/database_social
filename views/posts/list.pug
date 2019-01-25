@@ -1,0 +1,9 @@
+extends ../layouts/layout
+
+block content
+    div(class="col-md-12")
+        each post in posts
+            div.col-12.border-primary.mb-2
+                div.border.border-primary.p-3 #{post.content}
+                div.border.border-primary.p-2
+                    a.btn.btn-success(href='/post/'+post.id+'/view') visit
