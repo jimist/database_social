@@ -1,0 +1,18 @@
+extends ../layouts/layout
+
+block content
+    div.col-12
+        div.col12 username => #{user.username}
+        div.col12 followings => #{user.followings_count}
+        div.col12 followers => #{user.followers_count}
+        div.col12 posts => #{user.posts_count}
+        div.col12 bio => #{user.bio}
+
+        hr
+
+        each post in posts
+            div.col-12.border-primary.mb-2
+                div.border.border-primary.p-3 !{post.content}
+                div.border.border-primary.p-2
+                    a.btn.btn-success(href='/post/' + post.id + '/view') visit
+

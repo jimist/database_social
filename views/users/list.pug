@@ -1,0 +1,11 @@
+extends ../layouts/layout
+
+block content
+    div(class="col-md-12")
+        each user in users
+            ul
+                li
+                    a.font-weight-bold(href='/user/'+user.username) #{user.username}
+                    if user.follow_status=='not'
+                        a.btn.btn-success(href='/user/#{user.username}/follow') follow
+
