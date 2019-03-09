@@ -69,6 +69,11 @@ router.post('/register', (req, res) =>{
                     res.cookie('user-token', token);
                     res.redirect("/");
                 }
+                if(!(result.length>0)){
+                    res.send('not success')
+                }else{
+                    res.send(result)
+                }
             });
         }
     });
